@@ -1,4 +1,4 @@
-inline fn exit(status: u64) noreturn {
+inline fn exit(status: usize) noreturn {
     _ = asm volatile (
         \\mov $60, %%rax
         \\mov %[status], %%rdi
@@ -10,7 +10,7 @@ inline fn exit(status: u64) noreturn {
     unreachable;
 }
 
-inline fn write(fd: u64, buf: [*]const u8, count: u64) usize {
+inline fn write(fd: usize, buf: [*]const u8, count: usize) usize {
     return asm volatile (
         \\mov $1, %%rax
         \\mov %[fd], %%rdi
@@ -34,8 +34,8 @@ export fn _start() noreturn {
         's', 'a', 'i', 'l', 'o', 'r', '!',
         0x0a, 0x00
     };
-    
-    var i: u32 = 0;
+
+    var i: usize = 0;
     while (i < 10) : (i += 1) {
         _ = write(1, &msg, msg.len);
     }
