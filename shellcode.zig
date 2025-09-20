@@ -10,7 +10,7 @@ inline fn exit(status: usize) noreturn {
     unreachable;
 }
 
-inline fn write(fd: usize, buf: [*]const u8, count: usize) usize {
+inline fn write(fd: usize, buf: [*]u8, count: usize) usize {
     return asm volatile (
         \\mov $1, %%rax
         \\mov %[fd], %%rdi
