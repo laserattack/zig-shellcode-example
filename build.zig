@@ -80,8 +80,8 @@ pub fn build(b: *std.Build) void {
 
 
 
-    // Выполняемое через zig build
-    // Собственно 3 шага сборки
+    // Сборка
+    // Выполняемая через zig build
     b.default_step.dependOn(compile_step);
     b.default_step.dependOn(link_step);
     b.default_step.dependOn(extract_step);
