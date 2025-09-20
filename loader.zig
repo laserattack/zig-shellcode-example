@@ -21,7 +21,7 @@ pub fn main() !void {
         -1,
         0,
     );
-    
+
     if (mem == c.MAP_FAILED) {
         std.debug.print("mmap failed\n", .{});
         return error.MMapFailed;

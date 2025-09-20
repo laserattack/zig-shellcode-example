@@ -36,7 +36,7 @@ pub fn build(b: *std.Build) void {
     extract_cmd.step.dependOn(&compile_cmd.step);
     extract_step.dependOn(&extract_cmd.step);
 
-    // Установка зависимостей
+    // Собственно 3 шага сборки
     b.default_step.dependOn(compile_step);
     b.default_step.dependOn(link_step);
     b.default_step.dependOn(extract_step);
@@ -50,4 +50,13 @@ pub fn build(b: *std.Build) void {
         "shellcode.bin",
     });
     clean_step.dependOn(&clean_cmd.step);
+
+    const test_step = b.step("test", "Test shellcode by running loader.zig");
+    const test_cmd = b.addSystemCommand(&.{
+        "zig", "run",
+        "loader.zig",
+        "-lc", // линковка с libc
+    });
+    test_cmd.step.dependOn(extract_step);
+    test_step.dependOn(&test_cmd.step);
 }
