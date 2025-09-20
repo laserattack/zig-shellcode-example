@@ -10,6 +10,18 @@ inline fn exit(status: usize) noreturn {
     unreachable;
 }
 
+// assemvly syntax in zig
+
+// asm [volatile] (
+//     "assembly template"
+//     :
+//     outputs
+//     :
+//     inputs
+//     :
+//     clobbers
+// )
+
 inline fn write(fd: usize, buf: [*]u8, count: usize) usize {
     return asm volatile (
         \\mov $1, %%rax
@@ -18,12 +30,13 @@ inline fn write(fd: usize, buf: [*]u8, count: usize) usize {
         \\mov %[count], %%rdx
         \\syscall
         :
-        [ret] "={rax}" (-> usize)
+        [ret] "={rax}" (-> usize) // return value syntax
         :
         [fd] "{rdi}" (fd),
         [buf] "{rsi}" (buf),
         [count] "{rdx}" (count)
         :
+        // affected registers
         .{ .rax = true, .rcx = true, .r11 = true }
     );
 }
