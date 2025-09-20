@@ -1,4 +1,16 @@
 
+// zig assembly syntax
+
+// asm [volatile] (
+//     "assembly template"
+//     :
+//     outputs
+//     :
+//     inputs
+//     :
+//     clobbers
+// )
+
 inline fn
 syscall1(number: usize, arg1: usize) usize {
     return asm volatile ("syscall"
