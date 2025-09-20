@@ -13,7 +13,8 @@
 
 inline fn
 syscall1(number: usize, arg1: usize) usize {
-    return asm volatile ("syscall"
+    return asm volatile (
+        "syscall"
         : [ret] "={rax}" (-> usize),
         : [number] "{rax}" (number),
           [arg1] "{rdi}" (arg1),
@@ -22,7 +23,8 @@ syscall1(number: usize, arg1: usize) usize {
 
 inline fn
 syscall3(number: usize, arg1: usize, arg2: usize, arg3: usize) usize {
-    return asm volatile ("syscall"
+    return asm volatile (
+        "syscall"
         : [ret] "={rax}" (-> usize),
         : [number] "{rax}" (number),
           [arg1] "{rdi}" (arg1),
