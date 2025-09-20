@@ -1,0 +1,4 @@
+.zig-cache
+*.o
+*.bin
+*.elf
